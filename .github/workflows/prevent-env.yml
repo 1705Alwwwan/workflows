@@ -8,9 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Check for .env files in latest commit
+      - name: Check for any .env files in the commit
         run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.env'; then
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '\.env$|\.env\.'; then
             echo "❌ .env file detected in commit!"
             exit 1
           else
